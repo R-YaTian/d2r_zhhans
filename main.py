@@ -1,11 +1,13 @@
 import os
-import sys
-import dictionary_lib as custom_dict_lib
-sys.modules['opencc_purepy.dictionary_lib'] = custom_dict_lib
 from opencc_purepy import OpenCC
 
 # Initialize OpenCC converter (Traditional Chinese to Simplified Chinese)
-converter = OpenCC('tw2sp')
+converter = OpenCC.from_dicts(
+    config="tw2sp",
+    overrides={
+        "tw_phrases_rev": "./dicts/TWPhrasesRev.txt",
+    },
+)
 
 def convert_zhTW_to_zhCN(src_dir, output_dir):
     if not os.path.exists(src_dir):
