@@ -95,17 +95,17 @@ def main():
     parser.add_argument("--swap", action="store_true", help="Swap zhTW and zhCN values")
     args = parser.parse_args()
 
+    # Remove existing output data directory before generating new files
+    data_dir = 'zhhans/zhhans.mpq/data/local'
+    if os.path.exists(data_dir):
+        shutil.rmtree(data_dir)
+        print(f"Removed existing data directory: {data_dir}")
+
     output_dir_str = 'zhhans/zhhans.mpq/data/local/lng/strings'
     if args.swap:
         # Swap mode: only process string files and exit early.
         convert_zhTW_to_zhCN('Source', output_dir_str, use_swap=True)
         return
-
-    # Remove existing output data directory before generating new files
-    data_dir = 'zhhans/zhhans.mpq/data'
-    if os.path.exists(data_dir):
-        shutil.rmtree(data_dir)
-        print(f"Removed existing data directory: {data_dir}")
 
     output_dir_legacy = 'zhhans/zhhans.mpq/data/local/lng/strings-legacy'
     # Convert zhTW to zhCN and save to output folder
